@@ -2,10 +2,7 @@ package com.rodrigotroy.flashcardrestapi.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +13,7 @@ import javax.persistence.Id;
  */
 @Data
 @Entity
+@Table(name = "app_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
