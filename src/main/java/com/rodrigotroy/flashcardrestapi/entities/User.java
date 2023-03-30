@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,10 +24,15 @@ public class User {
     private Long id;
 
     @NonNull
+    @Column(nullable = false)
     private String name;
 
     @NonNull
+    @Column(nullable = false)
     private String email;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Flashcard> flashcards;
 
     public User() {
 

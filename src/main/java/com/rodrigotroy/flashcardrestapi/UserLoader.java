@@ -4,7 +4,8 @@ import com.rodrigotroy.flashcardrestapi.entities.User;
 import com.rodrigotroy.flashcardrestapi.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,8 +14,9 @@ import org.springframework.context.annotation.Configuration;
  * Date: 30-03-23
  * Time: 16:06
  */
-@Configuration
-public class DatabaseLoader {
+@Component
+@Order(1)
+public class UserLoader {
 
     @Bean
     CommandLineRunner initDatabase(UserRepository userRepository) {
