@@ -27,6 +27,12 @@ public class DatabaseLoader {
                                          "alice@example.com"));
             userRepository.save(new User("Bob",
                                          "bob@example.com"));
+
+            for (int i = 0; i < 10; i++) {
+                userRepository.save(new User("User " + i,
+                                             "user" + i + "@example.com"));
+            }
+
         };
     }
 }
