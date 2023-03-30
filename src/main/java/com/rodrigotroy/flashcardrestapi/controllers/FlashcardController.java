@@ -1,6 +1,7 @@
 package com.rodrigotroy.flashcardrestapi.controllers;
 
 import com.rodrigotroy.flashcardrestapi.entities.Flashcard;
+import com.rodrigotroy.flashcardrestapi.entities.User;
 import com.rodrigotroy.flashcardrestapi.repositories.FlashcardRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +25,12 @@ public class FlashcardController {
     private static final Logger LOG = LoggerFactory.getLogger(FlashcardController.class);
 
     private final FlashcardRepository flashcardRepository;
+    private final FlashcardRepository userRepository;
 
-    public FlashcardController(FlashcardRepository flashcardRepository) {
+    public FlashcardController(FlashcardRepository flashcardRepository,
+                               FlashcardRepository userRepository) {
         this.flashcardRepository = flashcardRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -45,8 +49,14 @@ public class FlashcardController {
                                     HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Flashcard> createFlashcard(@RequestBody Flashcard flashcard) {
+    @PostMapping("/users/{userId}")
+    public ResponseEntity<Flashcard> createFlashcard(@PathVariable Long userId,
+                                                     @RequestBody Flashcard flashcard) {
+        User user = userRepository.findById(userId)
+                                  .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                                                                 "User not found")).getUser();
+
+        flashcard.setUser(user);
         Flashcard savedFlashcard = flashcardRepository.save(flashcard);
         return new ResponseEntity<>(savedFlashcard,
                                     HttpStatus.CREATED);

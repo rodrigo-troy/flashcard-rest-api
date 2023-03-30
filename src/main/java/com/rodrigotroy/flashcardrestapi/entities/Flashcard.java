@@ -41,4 +41,8 @@ public class Flashcard {
 
     @Column
     private String definition;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }
